@@ -7,9 +7,11 @@
 
 import SwiftUI
 import MapKit
+import SwiftData
 
 struct MapView: View {
     @EnvironmentObject var locationManager: LocationManager
+    @State var coordinateArray = Coordinates()
     
     var body: some View {
         Map() {
@@ -18,10 +20,17 @@ struct MapView: View {
         Button("Add location") {
             addLocationData()
         }
+        Button("Print Array") {
+            print("\(coordinateArray)")
+        }
     }
     
     func addLocationData() {
-        print("\(locationManager.currentUserLocation ?? CLLocationCoordinate2D(latitude: 0, longitude: 0) )")
+        coordinateArray.latitude = locationManager.currentUserLocation?.latitude ?? 0
+        coordinateArray.longitude = locationManager.currentUserLocation?.longitude ?? 0
+            
+//            .append(locationManager.currentUserLocation ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
+        
     }
 }
 

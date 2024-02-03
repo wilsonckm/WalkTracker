@@ -13,8 +13,8 @@ import MapKit
 class RouteCoordinates: Identifiable {
     @Attribute(.unique) var id: String
     var run: Run?
-    @Relationship(deleteRule: .cascade, inverse: \Coordinate.routeCoordinates)
-    var coordinates: [Coordinate] = [Coordinate]()
+    @Relationship(deleteRule: .cascade, inverse: \Coordinates.routeCoordinates)
+    var coordinates: [Coordinates] = [Coordinates]()
     
     init() {
         id = UUID().uuidString

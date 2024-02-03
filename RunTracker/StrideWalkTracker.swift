@@ -19,7 +19,7 @@ struct StrideWalkTracker: App {
             //CoreLocation defined as an environment Object
                 .environmentObject(locationManager)
             //SwiftData Model setup
-                .modelContainer(for: [Run.self])
+                .modelContainer(for: [Run.self, RouteCoordinates.self, Coordinates.self])
             //Presents Onboarding + asks for location 
                 .fullScreenCover(isPresented: $needsOnboarding) {
                     needsOnboarding = false
