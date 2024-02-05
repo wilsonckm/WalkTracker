@@ -62,8 +62,6 @@ struct RunView: View {
         let newRun = Run()
         newRunSave = newRun
         modelContext.insert(newRun)
-        let newRoute = RouteCoordinates()
-        newRun.route.append(newRoute)
         newRun.name = "New Run"
         //Timer here for future timer UI updates
         startTimer = true
@@ -71,8 +69,13 @@ struct RunView: View {
             let newCoordinate = Coordinates()
             newCoordinate.latitude = locationManager.currentUserLocation?.coordinate.latitude ?? 0
             newCoordinate.longitude = locationManager.currentUserLocation?.coordinate.longitude ?? 0
+            newCoordinate.speed = locationManager.currentUserLocation?.speed ?? 0
+            
+            
+            
+            
             newCoordinate.time = Date()
-            newRoute.coordinates.append(newCoordinate)
+            newRun.route.append(newCoordinate)
         }
         newRunSave = newRun
     }

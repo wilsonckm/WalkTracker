@@ -14,8 +14,8 @@ class Run: Identifiable {
     var name = ""
     var startTime = Date()
     var endTime = Date()
-    @Relationship(deleteRule: .cascade, inverse: \RouteCoordinates.run)
-    var route: [RouteCoordinates] = [RouteCoordinates]()
+    @Relationship(deleteRule: .cascade, inverse: \Coordinates.run)
+    var route: [Coordinates] = [Coordinates]()
     var distance: Double = 0.0
     var notes = ""
     var duration: TimeInterval {

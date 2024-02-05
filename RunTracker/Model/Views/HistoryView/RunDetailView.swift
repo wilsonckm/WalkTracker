@@ -70,8 +70,7 @@ struct RunDetailView: View {
 //    
     //Consolidated function of Sort then convert to [CLLocationCoordinate2D]:
     private func sortedAndConvertedRouteCoordinates() -> [CLLocationCoordinate2D] {
-        let sortedCoordinates = run?.route.flatMap { routeCoordinates in
-            routeCoordinates.coordinates.sorted { $0.time < $1.time }
+        let sortedCoordinates = run?.route.sorted { $0.time < $1.time
         }.map { coordinate in
             CLLocationCoordinate2D(latitude: coordinate.latitude ?? 0, longitude: coordinate.longitude ?? 0)
         }

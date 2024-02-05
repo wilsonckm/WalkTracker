@@ -16,7 +16,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     private var locationManager = CLLocationManager()
     
 //    var currentUserLocation: CLLocationCoordinate2D?
-    //Caputures more data than just CLLocationCoordinate2D
+    
     var currentUserLocation: CLLocation?
     
     var locationAuthStatus: CLAuthorizationStatus = .notDetermined
@@ -46,14 +46,11 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: CLLocation?) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // Always update currentUserLocation with the most recent location
-//            currentUserLocation = locations.last?.coordinate
-                // call business search
-        
-        if let location = locations {
-            currentUserLocation = location
-        }
+    //Refactored CurrentUserLocation to take CLLocation instead of CLLocation2D
+        currentUserLocation = locations.last
+     
         
     }
     

@@ -44,8 +44,8 @@ struct MapView: View {
         }
         VStack {
             Button("Print CurrentLocation") {
-//                print(locationManager.currentUserLocation?.latitude ?? 0.0)
-//                print(locationManager.currentUserLocation?.longitude ?? 0.0)
+                print(locationManager.currentUserLocation?.coordinate.latitude ?? 0.0)
+                print(locationManager.currentUserLocation?.coordinate.longitude ?? 0.0)
             }
         }
     }
