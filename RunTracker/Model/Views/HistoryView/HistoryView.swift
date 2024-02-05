@@ -6,11 +6,8 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct HistoryView: View {
-    @Environment(\.modelContext) var modelContext
-    
     var body: some View {
         RunListView()
     }

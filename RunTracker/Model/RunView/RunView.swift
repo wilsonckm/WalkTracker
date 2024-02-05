@@ -39,10 +39,7 @@ struct RunView: View {
                 Spacer()
                 Button(action: {
                     //To Do: Logic to start saving location data
-                    
                     startRun()
-                    
-                    
                 }, label: {
                     Text("Start Run")
                 })
@@ -60,35 +57,20 @@ struct RunView: View {
         }
         
     }
-    
-//    func startRun(coordinates: CLLocationCoordinate2D) {
-//        let newRun = Run()
-//        modelContext.insert(newRun)
-//        let newRoute = RouteCoordinates()
-//        newRun.route.append(newRoute)
-//        //Timer here for future timer UI updates
-//        startTimer = true
-//        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: startTimer) { _ in
-//            let newCoordinate = Coordinates()
-//            newCoordinate.latitude = coordinates.latitude
-//            newCoordinate.longitude = coordinates.longitude
-//            newCoordinate.time = Date()
-//            newRoute.coordinates.append(newCoordinate)
-//        }
-//        newRunSave = newRun
-//    }
   
     func startRun() {
         let newRun = Run()
+        newRunSave = newRun
         modelContext.insert(newRun)
         let newRoute = RouteCoordinates()
         newRun.route.append(newRoute)
+        newRun.name = "New Run"
         //Timer here for future timer UI updates
         startTimer = true
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: startTimer) { _ in
             let newCoordinate = Coordinates()
-            newCoordinate.latitude = locationManager.currentUserLocation?.latitude ?? 0
-            newCoordinate.longitude = locationManager.currentUserLocation?.longitude ?? 0
+            newCoordinate.latitude = locationManager.currentUserLocation?.coordinate.latitude ?? 0
+            newCoordinate.longitude = locationManager.currentUserLocation?.coordinate.longitude ?? 0
             newCoordinate.time = Date()
             newRoute.coordinates.append(newCoordinate)
         }
@@ -100,6 +82,8 @@ struct RunView: View {
         //Setting the @state to false only stops UI updates
         timer?.invalidate()
             timer = nil
+        //set end time of the run.
+        newRunSave?.endTime = Date()
         startTimer = false
     }
     

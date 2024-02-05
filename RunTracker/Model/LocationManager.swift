@@ -15,10 +15,9 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     //2. Create CLLocationManager Instance
     private var locationManager = CLLocationManager()
     
-    var currentUserLocation: CLLocationCoordinate2D?
-    
-    //Property to save cooordinates: empty array of locaiton coordinates
-    var routeCoordinates = [CLLocationCoordinate2D]()
+//    var currentUserLocation: CLLocationCoordinate2D?
+    //Caputures more data than just CLLocationCoordinate2D
+    var currentUserLocation: CLLocation?
     
     var locationAuthStatus: CLAuthorizationStatus = .notDetermined
     
@@ -36,16 +35,6 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     }
     
     //If user changes authorization
-//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-//        //Detect if user allowed, then request location
-//        self.locationAuthStatus = manager.authorizationStatus
-//        if manager.authorizationStatus == .authorizedAlways {
-//            currentUserLocation = nil
-////            manager.requestLocation()
-//            locationManager.startUpdatingLocation()
-//        }
-//    }
-    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         self.locationAuthStatus = manager.authorizationStatus
         switch manager.authorizationStatus {
@@ -57,13 +46,13 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: CLLocation?) {
         // Always update currentUserLocation with the most recent location
 //            currentUserLocation = locations.last?.coordinate
                 // call business search
-        if let location = locations.last?.coordinate {
+        
+        if let location = locations {
             currentUserLocation = location
-            routeCoordinates.append(location)
         }
         
     }

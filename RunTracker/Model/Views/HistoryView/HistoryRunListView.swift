@@ -24,12 +24,9 @@ struct RunListView: View {
                     List {
                         ForEach(runs) { item in
                             NavigationLink(value: item) {
-                                HStack {
-                                    //RunCellView?
-                                    Text(item.name)
-                                    Spacer()
-                                    Text("\(item.duration)")
-                                }
+                                
+                                    HistoryRunListCellView(run: item)
+                        
                                 .swipeActions {
                                     Button("Delete") {
                                         modelContext.delete(item)

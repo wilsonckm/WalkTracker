@@ -24,6 +24,9 @@
 		D1AAAEB42B6EED9000A1307A /* NewRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AAAEB32B6EED9000A1307A /* NewRun.swift */; };
 		D1AAAEB82B6F234400A1307A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AAAEB72B6F234400A1307A /* ProfileView.swift */; };
 		D1AAAEBB2B6F266700A1307A /* RunView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AAAEBA2B6F266700A1307A /* RunView.swift */; };
+		D1AAAEC12B71498B00A1307A /* HistoryRunListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AAAEC02B71498B00A1307A /* HistoryRunListCellView.swift */; };
+		D1AAAEC42B714AAA00A1307A /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AAAEC32B714AAA00A1307A /* DateHelper.swift */; };
+		D1AAAEC62B714B5800A1307A /* DurationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AAAEC52B714B5800A1307A /* DurationHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +49,9 @@
 		D1AAAEB32B6EED9000A1307A /* NewRun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRun.swift; sourceTree = "<group>"; };
 		D1AAAEB72B6F234400A1307A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		D1AAAEBA2B6F266700A1307A /* RunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunView.swift; sourceTree = "<group>"; };
+		D1AAAEC02B71498B00A1307A /* HistoryRunListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRunListCellView.swift; sourceTree = "<group>"; };
+		D1AAAEC32B714AAA00A1307A /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		D1AAAEC52B714B5800A1307A /* DurationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,7 @@
 			children = (
 				D1AAAEA32B6E180000A1307A /* Info.plist */,
 				D1AAAE652B6D755700A1307A /* StrideWalkTracker.swift */,
+				D1AAAEC22B714A9B00A1307A /* Helper */,
 				D1AAAE8D2B6D904800A1307A /* Model */,
 				D1AAAE692B6D755800A1307A /* Assets.xcassets */,
 				D1AAAE6B2B6D755800A1307A /* Preview Content */,
@@ -136,6 +143,7 @@
 				D1AAAEAD2B6ED17D00A1307A /* HistoryView.swift */,
 				D1AAAEB12B6ED19C00A1307A /* HistoryRunListView.swift */,
 				D1AAAEAF2B6ED18B00A1307A /* RunDetailView.swift */,
+				D1AAAEC02B71498B00A1307A /* HistoryRunListCellView.swift */,
 			);
 			path = HistoryView;
 			sourceTree = "<group>";
@@ -170,6 +178,15 @@
 				D1AAAEB32B6EED9000A1307A /* NewRun.swift */,
 			);
 			path = RunView;
+			sourceTree = "<group>";
+		};
+		D1AAAEC22B714A9B00A1307A /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				D1AAAEC32B714AAA00A1307A /* DateHelper.swift */,
+				D1AAAEC52B714B5800A1307A /* DurationHelper.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,12 +264,15 @@
 				D1AAAE682B6D755700A1307A /* HomeView.swift in Sources */,
 				D1AAAE972B6D9D7E00A1307A /* LocationManager.swift in Sources */,
 				D1AAAE662B6D755700A1307A /* StrideWalkTracker.swift in Sources */,
+				D1AAAEC12B71498B00A1307A /* HistoryRunListCellView.swift in Sources */,
 				D1AAAEA72B6EBCBA00A1307A /* Coordinates.swift in Sources */,
 				D1AAAE952B6D9A7800A1307A /* RouteCoordinates.swift in Sources */,
 				D1AAAEAE2B6ED17D00A1307A /* HistoryView.swift in Sources */,
+				D1AAAEC42B714AAA00A1307A /* DateHelper.swift in Sources */,
 				D1AAAEA92B6EC10700A1307A /* MapView.swift in Sources */,
 				D1AAAEA02B6DF0C600A1307A /* OnboardingDetailView.swift in Sources */,
 				D1AAAE9E2B6DF0B800A1307A /* OnboardingView.swift in Sources */,
+				D1AAAEC62B714B5800A1307A /* DurationHelper.swift in Sources */,
 				D1AAAEBB2B6F266700A1307A /* RunView.swift in Sources */,
 				D1AAAEB02B6ED18B00A1307A /* RunDetailView.swift in Sources */,
 				D1AAAEB82B6F234400A1307A /* ProfileView.swift in Sources */,
