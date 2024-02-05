@@ -7,29 +7,16 @@
 
 import SwiftUI
 import MapKit
+import CoreLocation
 
 struct RunDetailView: View {
     
     var run: Run?
+    @State var runCoordinates: [CLLocationCoordinate2D]?
     
-    //Computed property: Convert from data into CLLocationCoordinate2D
-//    private func converedRouteCoordinates() -> [CLLocationCoordinate2D] {
-//        run?.route.flatMap { routeCoordinates in
-//            routeCoordinates.coordinates.map { coordinate in
-//                CLLocationCoordinate2D(latitude: coordinate.latitude ?? 0, longitude: coordinate.longitude ?? 0)
-//            }
-//        } ?? []
-//    }
-    
-//    private var string: String {
-//        let coordinateStrings = converedRouteCoordinates().map { coordinate in
-//            "(\(coordinate.latitude), \(coordinate.longitude))"
-//        }
-//        return coordinateStrings.joined(separator: ", ")
-//    }
     // Computed property to convert route coordinates into CLLocationCoordinate2D array
     private func convertedRouteCoordinates() -> [CLLocationCoordinate2D] {
-        run?.route.flatMap { routeCoordinates in
+        return run?.route.flatMap { routeCoordinates in
             routeCoordinates.coordinates.map { coordinate in
                 CLLocationCoordinate2D(latitude: coordinate.latitude ?? 0, longitude: coordinate.longitude ?? 0)
             }
@@ -39,7 +26,7 @@ struct RunDetailView: View {
     private var runDetailsString: String {
             guard let run = run else { return "No run data available" }
             
-            let name = run.name ?? "Unnamed Run"
+        let name = run.name 
 //            let duration = run.duration ?? "Duration not available"
             let distance = "\(run.distance) meters" // Assuming distance is stored as Double or String
             
@@ -57,18 +44,22 @@ struct RunDetailView: View {
     var body: some View {
         Map(){
 //            Marker("Location", coordinate: convertedRouteCoordinates())
+//            MapPolyline(coordinates: runCoordinates ?? [])
+//                .stroke(.blue, lineWidth: 2)
             MapPolyline(coordinates: convertedRouteCoordinates())
+                .stroke(.blue, lineWidth: 2)
         }
-        VStack {
-//            Text(string)
-            Text(run?.name ?? "Run Name")
-            Text(runDetailsString)
-            Text("This is the detailView")
-        
+        .onAppear {
+                        // Now fetching and setting the coordinates here, when the view appears.
+//                        runCoordinates = convertedRouteCoordinates()
+            print(convertedRouteCoordinates())
+                    }
+        ScrollView{
+            VStack {
+                Text(runDetailsString)
+                Text("This is the detailView")
             
-            
-//            Text(run?.duration)
-//            Text(run.distance)
+            }
         }
     }
     

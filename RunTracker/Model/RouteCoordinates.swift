@@ -15,7 +15,7 @@ class RouteCoordinates: Identifiable {
     var run: Run?
     @Relationship(deleteRule: .cascade, inverse: \Coordinates.routeCoordinates)
     var coordinates: [Coordinates] = [Coordinates]()
-    
+//
     init() {
         id = UUID().uuidString
     }

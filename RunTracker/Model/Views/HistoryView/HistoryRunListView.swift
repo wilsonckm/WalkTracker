@@ -38,8 +38,8 @@ struct RunListView: View {
                             }
                         }
                     }
-                    .navigationDestination(for: Run.self) { run in
-                        RunDetailView(run: run)
+                    .navigationDestination(for: Run.self) { selectedRun in
+                        RunDetailView(run: selectedRun)
                     }
                     .listStyle(.plain)
                     .navigationTitle("History")

@@ -18,11 +18,11 @@ class Run: Identifiable {
     var route: [RouteCoordinates] = [RouteCoordinates]()
     var distance: Double = 0.0
     var notes = ""
+    var duration: TimeInterval {
+        return endTime.timeIntervalSince(startTime)
+    }
     
     init() {
         id = UUID().uuidString
-    }
-    var duration: TimeInterval {
-        return endTime.timeIntervalSince(startTime)
     }
 }
