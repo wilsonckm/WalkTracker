@@ -11,27 +11,24 @@ import SwiftData
 
 struct MapView: View {
     @EnvironmentObject var locationManager: LocationManager
-    @State var coordinateArray = Coordinates()
+//    @State var coordinateArray = Coordinates()
     
     var body: some View {
-        Map() {
-            UserAnnotation()
-        }
-        Button("Add location") {
-            addLocationData()
-        }
-        Button("Print Array") {
-            print("\(coordinateArray)")
+        VStack {
+            Button("Print CurrentLocation") {
+                print(locationManager.currentUserLocation?.latitude ?? 0.0)
+                print(locationManager.currentUserLocation?.longitude ?? 0.0)
+            }
         }
     }
     
-    func addLocationData() {
-        coordinateArray.latitude = locationManager.currentUserLocation?.latitude ?? 0
-        coordinateArray.longitude = locationManager.currentUserLocation?.longitude ?? 0
-            
-//            .append(locationManager.currentUserLocation ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
-        
-    }
+//    func addLocationData() {
+//        coordinateArray.latitude = locationManager.currentUserLocation?.latitude ?? 0
+//        coordinateArray.longitude = locationManager.currentUserLocation?.longitude ?? 0
+//            
+////            .append(locationManager.currentUserLocation ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
+//        
+//    }
 }
 
 #Preview {

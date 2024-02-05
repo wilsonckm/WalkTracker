@@ -10,7 +10,29 @@ import SwiftUI
 struct HomeView: View {
     
     var body: some View {
-        RunView()
+        TabView {
+            HistoryView()
+                .tabItem {
+                    VStack {
+                        Image(systemName: "lines.measurement.horizontal")
+                        Text("History")
+                    }
+                }
+            RunView()
+                .tabItem {
+                    VStack {
+                        Image(systemName: "figure.run")
+                        Text("Run")
+                    }
+                }
+            MapView()
+                .tabItem {
+                    VStack {
+                        Image(systemName: "person")
+                        Text("Profile")
+                    }
+                }
+        }
     }
 }
 

@@ -14,8 +14,11 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     
     //2. Create CLLocationManager Instance
     private var locationManager = CLLocationManager()
+    
     var currentUserLocation: CLLocationCoordinate2D?
-//    var allowsBackgroundLocatonUpdates = true
+    
+    //Property to save cooordinates: empty array of locaiton coordinates
+    var routeCoordinates = [CLLocationCoordinate2D]()
     
     var locationAuthStatus: CLAuthorizationStatus = .notDetermined
     
@@ -24,42 +27,46 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
         locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.allowsBackgroundLocationUpdates = true
     }
     
-    func getUserLocation() {
-        //Check if we have permission
-        if locationManager.authorizationStatus == .authorizedWhenInUse {
-            currentUserLocation = nil
-//            locationManager.requestLocation()
-            locationManager.startUpdatingLocation()
-        } else {
-            locationManager.requestWhenInUseAuthorization()
-        }
+    //Request Permission/Authorization
+    func requestLocationPermission() {
+        locationManager.requestWhenInUseAuthorization()
     }
+    
+    //If user changes authorization
+//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+//        //Detect if user allowed, then request location
+//        self.locationAuthStatus = manager.authorizationStatus
+//        if manager.authorizationStatus == .authorizedAlways {
+//            currentUserLocation = nil
+////            manager.requestLocation()
+//            locationManager.startUpdatingLocation()
+//        }
+//    }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        //Detect if user allowed, then request location
         self.locationAuthStatus = manager.authorizationStatus
-        if manager.authorizationStatus == .authorizedWhenInUse {
-            currentUserLocation = nil
-//            manager.requestLocation()
-            locationManager.startUpdatingLocation()
+        switch manager.authorizationStatus {
+            case .authorizedAlways, .authorizedWhenInUse:
+                currentUserLocation = nil
+                locationManager.startUpdatingLocation()
+            default:
+                break
         }
     }
-    //What sets currentUserLocation
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        if currentUserLocation == nil {
-//            currentUserLocation = locations.last?.coordinate
-//        }
-//        
-//        manager.stopUpdatingLocation()
-//    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // Always update currentUserLocation with the most recent location
-        currentUserLocation = locations.last?.coordinate
+//            currentUserLocation = locations.last?.coordinate
+                // call business search
+        if let location = locations.last?.coordinate {
+            currentUserLocation = location
+            routeCoordinates.append(location)
+        }
+        
     }
-
-    
     
     
     //Error Handling
@@ -68,15 +75,30 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         print("Error fetching location: \(error)")
     }
 
-    //Start updating location
+    //Start updating location if authorized
+//    func startLocationUpdates() {
+//        if locationManager.authorizationStatus == .authorizedAlways {
+//            currentUserLocation = nil
+//            locationManager.startUpdatingLocation()
+//        } else {
+//            locationManager.requestWhenInUseAuthorization()
+//        }
+//    }
+//    
     func startLocationUpdates() {
-        if locationManager.authorizationStatus == .authorizedWhenInUse {
-            currentUserLocation = nil
-            locationManager.startUpdatingLocation()
-        } else {
-            locationManager.requestWhenInUseAuthorization()
+        switch locationManager.authorizationStatus {
+            case .authorizedAlways, .authorizedWhenInUse:
+//                currentUserLocation = nil
+                locationManager.startUpdatingLocation()
+            case .notDetermined:
+            locationManager.requestWhenInUseAuthorization() // or .requestAlwaysAuthorization() depending on your needs
+            default:
+                break
         }
     }
-
     
+    //Stop Function
+    func stopLocationUpdates() {
+        locationManager.stopUpdatingLocation()
+    }
 }

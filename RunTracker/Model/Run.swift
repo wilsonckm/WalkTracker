@@ -19,16 +19,6 @@ class Run: Identifiable {
     var distance: Double = 0.0
     var notes = ""
     
-//    init(id: String, name: String = "", startTime: Date = Date(), endTime: Date = Date(), route: [RouteCoordinates], distance: Double, notes: String = "") {
-//        self.id = id
-//        self.name = name
-//        self.startTime = startTime
-//        self.endTime = endTime
-//        self.route = route
-//        self.distance = distance
-//        self.notes = notes
-//    }
-  
     init() {
         id = UUID().uuidString
     }
