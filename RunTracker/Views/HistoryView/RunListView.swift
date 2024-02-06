@@ -14,7 +14,7 @@ struct RunListView: View {
     @State private var presentedRuns: [Run] = []
     
     var body: some View {
-        NavigationStack(path: $presentedRuns) {
+        NavigationStack(path: $presentedRuns){
             ZStack {
                 if runs.isEmpty {
                     Spacer()
@@ -24,9 +24,7 @@ struct RunListView: View {
                     List {
                         ForEach(runs) { item in
                             NavigationLink(value: item) {
-                                
-                                    HistoryRunListCellView(run: item)
-                        
+                                    RunListCell(run: item)
                                 .swipeActions {
                                     Button("Delete") {
                                         modelContext.delete(item)

@@ -23,7 +23,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     
     override init() {
         super.init()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
         locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.allowsBackgroundLocationUpdates = true

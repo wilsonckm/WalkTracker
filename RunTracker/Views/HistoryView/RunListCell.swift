@@ -7,19 +7,24 @@
 
 import SwiftUI
 
-struct HistoryRunListCellView: View {
+struct RunListCell: View {
+    
     var run = Run()
     
     var body: some View {
         HStack {
             Text(run.name)
+                .bold()
+                .font(.system(size: 16))
             Spacer()
-            Text("\(run.startTime.formatted(.dateTime.day().month()))")
-            Text("\(DurationHelper.formatDuration(duration: run.duration))")
+            VStack {
+                Text("\(run.startTime.formatted(.dateTime.day().month()))")
+                
+            }
         }
     }
 }
 
 #Preview {
-    HistoryRunListCellView()
+    RunListCell()
 }
