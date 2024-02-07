@@ -133,6 +133,12 @@ struct RunDetailView: View {
         return String(format: "%d:%02d", minutesPerMile, secondsPerMile) // Format: MM:SS
         
     }
+    
+    //Altitude/elevation
+    private func altitudeCalculation() -> Double {
+        //To do
+        
+    }
 
 
 }

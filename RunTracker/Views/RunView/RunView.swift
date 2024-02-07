@@ -102,10 +102,13 @@ struct RunView: View {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: startTimer) { _ in
             let newCoordinate = Coordinates()
             //Converting CLLLocation to swiftData! Make sure you have a property in swift data to take in new data points!
-            newCoordinate.latitude = locationManager.currentUserLocation?.coordinate.latitude ?? 0
-            newCoordinate.longitude = locationManager.currentUserLocation?.coordinate.longitude ?? 0
-            newCoordinate.speed = locationManager.currentUserLocation?.speed ?? 0
+            
+            //See https://developer.apple.com/documentation/corelocation/cllocation/1423718-init for more information
+            newCoordinate.latitude = locationManager.currentUserLocation?.coordinate.latitude ?? 0.0
+            newCoordinate.longitude = locationManager.currentUserLocation?.coordinate.longitude ?? 0.0
+            newCoordinate.speed = locationManager.currentUserLocation?.speed ?? 0.0
             newCoordinate.time = Date()
+            newCoordinate.altitude = locationManager.currentUserLocation?.altitude ?? 0.0
             //Add Coordinate to route array
             newRun.route.append(newCoordinate)
         }

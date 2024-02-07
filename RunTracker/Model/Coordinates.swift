@@ -10,6 +10,13 @@ import Foundation
 import SwiftData
 import MapKit
 
+//Coordinates data model is based off of CLLocation:
+// See https://developer.apple.com/documentation/corelocation/cllocation/1423718-init for more info.
+
+
+
+// Additional improvements may consider the accuracy of the altitude/longidude/latitude data points. 
+
 @Model
 class Coordinates: Identifiable {
     @Attribute(.unique) var id: String
@@ -25,7 +32,9 @@ class Coordinates: Identifiable {
     var longitude: Double?
     
     //Upon further inspection in documentation, additional CoreLocation variables can be considered such as altitude and speed found in CLLocation.
+    //Altitude is a CLLocationDistance --> Which is a double.
     var altitude: Double?
+    
     var speed: Double?
     
     init() {
