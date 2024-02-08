@@ -50,6 +50,8 @@ struct RunDetailView: View {
                                     .padding(.bottom, 15)
                                 RunStat(name: "Distance", value: TextFormatHelper.doubleToTenthsStringConvert(double: metersToMiles(meters: totalDistance(coordinates:sortedAndConvertedRouteCoordinates()))), units: "mi")
                                     .padding(.bottom, 15)
+                                RunStat(name: "Elev. gain", value: TextFormatHelper.doubleToTenthsStringConvert(double: altitudeCalculation()), units: "m")
+                                    .padding(.bottom, 15)
                             }
                             .padding(.trailing, 50)
                             VStack {
@@ -79,7 +81,7 @@ struct RunDetailView: View {
         }.map { coordinate in
             CLLocationCoordinate2D(latitude: coordinate.latitude ?? 0, longitude: coordinate.longitude ?? 0)
         }
-
+        
         return sortedCoordinates ?? []
     }
     
@@ -107,7 +109,7 @@ struct RunDetailView: View {
         let speeds = run?.route.compactMap { $0.speed }
         let totalSpeed = speeds?.reduce(0.0, +) ?? 0.0
         let avgSpeed = totalSpeed/Double(speeds?.count ?? Int(0))
-    
+        
         return avgSpeed
     }
     
@@ -134,15 +136,25 @@ struct RunDetailView: View {
         
     }
     
-    //Altitude/elevation
+    //Altitude/elevation gain
     private func altitudeCalculation() -> Double {
         //To do
+        guard let currentAltitude = run?.route.compactMap({ $0.altitude }), currentAltitude.count > 1 else {
+            return 0.0
+        }
+        
+        var elevationGain = 0.0
+        for i in 1..<currentAltitude.count {
+            let difference = currentAltitude[i] - currentAltitude[i - 1]
+            if difference > 0 {
+                elevationGain += difference
+            }
+            
+        }
+        return elevationGain
         
     }
-
-
 }
-
 //#Preview {
 //    RunDetailView(run: )
 //}

@@ -46,6 +46,9 @@ struct MapView: View {
             Button("Print CurrentLocation") {
                 print(locationManager.currentUserLocation?.coordinate.latitude ?? 0.0)
                 print(locationManager.currentUserLocation?.coordinate.longitude ?? 0.0)
+                //simulator does not provide altitude info!!!
+                print(locationManager.currentUserLocation?.altitude ?? 0.8234)
+                print(locationManager.currentUserLocation?.speed ?? 0.0)
             }
         }
     }

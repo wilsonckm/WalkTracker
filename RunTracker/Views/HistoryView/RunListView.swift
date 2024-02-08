@@ -15,30 +15,28 @@ struct RunListView: View {
     
     var body: some View {
         NavigationStack(path: $presentedRuns){
-            ZStack {
-                if runs.isEmpty {
-                    Spacer()
-                    Text("No Runs yet!")
-                    Spacer()
-                } else {
-                    List {
-                        ForEach(runs) { item in
-                            NavigationLink(value: item) {
-                                    RunListCell(run: item)
+            if runs.isEmpty {
+                Spacer()
+                Text("No Runs yet!")
+                Spacer()
+            } else {
+                List {
+                    ForEach(runs) { item in
+                        NavigationLink(value: item) {
+                            RunListCell(run: item)
                                 .swipeActions {
                                     Button("Delete") {
                                         modelContext.delete(item)
                                     }
                                 }
-                            }
                         }
                     }
-                    .navigationDestination(for: Run.self) { selectedRun in
-                        RunDetailView(run: selectedRun)
-                    }
-                    .listStyle(.plain)
-                    .navigationTitle("History")
                 }
+                .navigationDestination(for: Run.self) { selectedRun in
+                    RunDetailView(run: selectedRun)
+                }
+                .listStyle(.plain)
+                .navigationTitle("History")
             }
         }
     }
