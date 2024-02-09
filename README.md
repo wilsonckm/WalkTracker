@@ -5,11 +5,11 @@ Currently in progress...
 WalkTracker is basic app that allows a user to log walk/runs. The app is able to provide user stats such as run speed, distance, altitude changes, and pace.  
 
 ## Future Updates/Features In Progress:
--Total Stats in the profile view
--Update UI
--HealthKit implementation + Read/Writing data: 6-Minute-Walk, Walking asymmetry, previous history of fall, walking speed, walking steadiness, and step length. 
--Fall Risk Assessment + Explainations??
--Implementing 5x sit to stand test to further develop fall risk assessment. 
+- Total Stats in the profile view
+- Update UI
+- HealthKit implementation + Read/Writing data: 6-Minute-Walk, Walking asymmetry, previous history of fall, walking speed, walking steadiness, and step length. 
+- Fall Risk Assessment + Explainations??
+- Implementing 5x sit to stand test to further develop fall risk assessment. 
 
 ### Technologies Used
 - CoreLocation Framework
