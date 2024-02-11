@@ -138,11 +138,11 @@ struct RunDetailView: View {
     
     //Altitude/elevation gain
     private func altitudeCalculation() -> Double {
-        //To do
+        //Access + check if optional exists else returns Double
         guard let currentAltitude = run?.route.compactMap({ $0.altitude }), currentAltitude.count > 1 else {
             return 0.0
         }
-        
+        //Only adds difference if user gains elevation! Does not count for going downhill.
         var elevationGain = 0.0
         for i in 1..<currentAltitude.count {
             let difference = currentAltitude[i] - currentAltitude[i - 1]
