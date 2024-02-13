@@ -21,5 +21,13 @@ struct TextFormatHelper {
         return String(format: "%.1f", double)
     }
     
+    static func limitChars(input: String, limit: Int) -> String {
+        //If the input is the above the limit, take the first
+        if input.count > limit {
+            return String(input.prefix(limit))
+        }
+        return input
+    }
+    
     
 }

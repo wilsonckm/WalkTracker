@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class Run: Identifiable {
+class Run: Identifiable{
     @Attribute(.unique) var id: String
     var name: String = ""
     var startTime = Date()

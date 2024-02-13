@@ -15,19 +15,44 @@ struct RunDetailView: View {
     var run: Run?
     @EnvironmentObject var locationManager: LocationManager
     @Environment(\.dismiss) private var dismiss
+    @State var isEditingName: Bool = false
+    @State var runName: String = ""
     
     var body: some View {
         VStack {
             HStack {
                 Button(action: {
+                    run?.name = runName
+                    isEditingName = false
                     dismiss()
                 }, label: {
                     Image(systemName: "chevron.backward")
+                        .resizable()
+                        .frame(width: 25, height: 20)
                 })
-                Text(run?.name ?? "New Run")
-                    .bold()
-                    .font(.title)
+                //Prevent saving of empty name of run
+                .disabled(runName.isEmpty)
+                
+                if isEditingName {
+                    TextField("Run Name", text: $runName)
+                        .bold()
+                        .font(.title)
+                        .onChange(of: runName) {oldValue, newValue in
+                            runName = TextFormatHelper.limitChars(input: runName, limit: 16)
+                        }
+                        .padding(.vertical, -1)
+                } else {
+                    Text(run?.name ?? "New Run")
+                        .bold()
+                        .font(.title)
+                        .onTapGesture {
+                            isEditingName = true
+                        }
+                }
                 Spacer()
+                    .onTapGesture {
+                        isEditingName = true
+                    }
                 VStack(alignment: .trailing) {
                     Text("\(DateHelper.dateHelper(date: run?.startTime ?? Date()))")
                         .font(.caption)
@@ -35,11 +60,22 @@ struct RunDetailView: View {
                         .font(.caption)
                 }
             }
-            Map(){
-                MapPolyline(coordinates: sortedAndConvertedRouteCoordinates())
-                    .stroke(.blue, lineWidth: 2)
+            .padding(.bottom, 12)
+            VStack {
+                Map(){
+                    MapPolyline(coordinates: sortedAndConvertedRouteCoordinates())
+                        .stroke(.blue, lineWidth: 2)
+                }
+                .onTapGesture {
+                    //Save and stop editing
+                    run?.name = runName
+                    //Prevent saving of empty name of run
+                    if runName.isEmpty == false {
+                        isEditingName = false
+                    }
+                }
+                .padding(.horizontal, -20)
             }
-            .padding(.horizontal, -20)
             
             ScrollView {
                 VStack {
@@ -59,22 +95,32 @@ struct RunDetailView: View {
                                     .padding(.bottom, 15)
                                 RunStat(name: "Avg. Pace", value: avgPace(avgSpeed: averageSpeed()), units: "/mi")
                                     .padding(.bottom, 15)
+                                Spacer()
+                                //HR avg
+                                //Max HR
                             }
                             Spacer()
                         }
                         
                     }
-                    
-                    Button("Edit") {
-                        //To Do:
-                        dismiss()
-                    }
                 }
             }
+            .onTapGesture {
+                run?.name = runName
+                if runName.isEmpty == false {
+                    isEditingName = false
+                }
+            }
+        }
+        .onAppear {
+            runName = run?.name ?? "New Run"
         }
         .padding()
         .navigationBarBackButtonHidden(true)
     }
+    
+    
+    
     //Consolidated function of Sort then convert to [CLLocationCoordinate2D] for MapPolyLine:
     private func sortedAndConvertedRouteCoordinates() -> [CLLocationCoordinate2D] {
         let sortedCoordinates = run?.route.sorted { $0.time < $1.time
