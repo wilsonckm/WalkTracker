@@ -8,14 +8,17 @@
 import SwiftUI
 import MapKit
 import CoreLocation
+import SwiftData
 
 
 struct RunDetailView: View {
     
     var run: Run?
     @EnvironmentObject var locationManager: LocationManager
+    @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) private var dismiss
     @State var isEditingName: Bool = false
+    @State var showConfirmation: Bool = false
     @State var runName: String = ""
     
     var body: some View {
@@ -104,6 +107,36 @@ struct RunDetailView: View {
                         
                     }
                 }
+                HStack {
+                    Button("Edit Run") {
+                        //To do
+                    }
+                    Button("Delete Run") {
+                        showConfirmation = true
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.red)
+                }
+                .confirmationDialog("Really delete?", isPresented: $showConfirmation, titleVisibility: .visible) { Button("Yes, delete it") {
+                    
+                    withAnimation {
+                        modelContext.delete(run!)
+                        
+                        //Force a SwiftData save
+//                        try? modelContext.save()
+                    }
+                    dismiss()
+                }
+                }
+                
+                
+                
+                
+                
+                
+                
+                
+                
             }
             .onTapGesture {
                 run?.name = runName
@@ -136,11 +169,12 @@ struct RunDetailView: View {
         let locations = coordinates.map { CLLocation(latitude: $0.latitude, longitude: $0.longitude) }
         var totalDistance: Double = 0.0
         
-        for i in 1..<locations.count {
-            let previous = locations[i - 1]
-            let current = locations[i]
-            totalDistance += current.distance(from: previous)
-        }
+        //To do: Known bug at this line--> attempted to guard against locations.count =0 however lead to recursive UI update? that results in app crashing and CPU spike
+            for i in 1..<locations.count {
+                let previous = locations[i - 1]
+                let current = locations[i]
+                totalDistance += current.distance(from: previous)
+            }
         return totalDistance
     }
     
