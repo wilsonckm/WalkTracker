@@ -1,4 +1,4 @@
-# WalkTracker/RunTracker
+# RunTracker
 Currently in progress...
 
 ## Description
